@@ -1,8 +1,10 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { connect } from 'react-redux';
 
-export default Deck = (props) => {
-    const { title, numberOfCards } = props
+const Deck = (props) => {
+    const { title, numberOfCards } = props.deck
+
     return (
         <View style={styles.container}>
             <Text style={styles.title}>{title}</Text>
@@ -12,9 +14,9 @@ export default Deck = (props) => {
 }
 
 const styles = StyleSheet.create({
-    container:{
-        height:150,
-        justifyContent:'center',
+    container: {
+        height: 150,
+        justifyContent: 'center',
     },
     title: {
         fontSize: 16,
@@ -27,3 +29,11 @@ const styles = StyleSheet.create({
         color: '#727070'
     }
 })
+
+function mapStateToProps({ decks }, { deckId }) {
+    return {
+        deck: decks[deckId]
+    }
+}
+
+export default connect(mapStateToProps)(Deck)
