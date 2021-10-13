@@ -7,7 +7,7 @@ class DecksScreen extends Component {
 
     renderItem = ({ item }) => {
         const deckId = item
-        return <Deck key={deckId} deckId={deckId} />
+        return <Deck deckId={deckId} />
     }
     render() {
         const { decksIds } = this.props
@@ -16,6 +16,7 @@ class DecksScreen extends Component {
                 <FlatList
                     data={decksIds}
                     renderItem={this.renderItem}
+                    keyExtractor={(item, index) => index.toString()}
                 />
             </View>
         )
