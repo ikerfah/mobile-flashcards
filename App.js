@@ -9,8 +9,9 @@ import DeckDetailsScreen from "./src/components/DeckDetailsScreen";
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { SCREEN_DECKS, SCREEN_DECK_DETAILS_SCREEN, SCREEN_NEW_DECK } from './src/utils/constants'
+import { SCREEN_DECKS, SCREEN_DECK_DETAILS_SCREEN, SCREEN_NEW_DECK ,DECKS } from './src/utils/constants'
 import AddDeck from "./src/components/AddDeck";
+import { Ionicons} from '@expo/vector-icons';
 const store = createStore(reducer, middleware)
 
 const Tab = createBottomTabNavigator();
@@ -30,12 +31,24 @@ export default function App() {
     <NavigationContainer>
       <Provider store={store}>
         <View style={{ flex: 1 }}>
-          <Tab.Navigator screenOptions={{ tabBarIconStyle: { display: "none" } }}>
-            <Tab.Screen options={{ headerShown: false }} name="DECKS" component={MainScreen} i />
+          <Tab.Navigator
+            screenOptions={({ route }) => ({
+              tabBarIcon: ({ focused, color, size }) => {
+                let iconName;
+
+                if (route.name === DECKS) {
+                  iconName = focused ? 'card' : 'card';
+                } else if (route.name === SCREEN_NEW_DECK) {
+                  iconName = focused ? 'add-circle' : 'add-circle-outline';
+                }
+            // You can return any component that you like here!           
+            return <Ionicons name={iconName} size={size} color={color} />;          },          tabBarActiveTintColor: 'tomato',          tabBarInactiveTintColor: 'gray',        })}
+          >
+            <Tab.Screen options={{ headerShown: false }} name={DECKS} component={MainScreen} i />
             <Tab.Screen options={{ headerShown: false }} name={SCREEN_NEW_DECK} component={AddDeck} />
           </Tab.Navigator>
-        </View>
-      </Provider>
-    </NavigationContainer>
+      </View>
+    </Provider>
+    </NavigationContainer >
   )
 }
