@@ -26,10 +26,13 @@ function addCard(deckId, card) {
     }
 }
 
-export function handleAddDeck(title) {
+export function handleAddDeck(title, onDeckSaved) {
     return (dispatch) => {
         saveDeck(title)
-        .then((deck) => dispatch(addDeck(deck)))
+            .then((deck) => {
+                dispatch(addDeck(deck))
+                onDeckSaved(deck)
+            })
     }
 }
 

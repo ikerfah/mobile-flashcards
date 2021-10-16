@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
 import { connect } from 'react-redux';
 import { handleAddDeck } from '../actions/decks';
+import { SCREEN_DECK_DETAILS_SCREEN } from '../utils/constants';
 import CustomButton from './CustomButton';
 
 
@@ -12,22 +13,25 @@ class AddDeck extends Component {
 
     onChangeText = (title) => {
 
-        
+
         this.setState(() => ({
             title
         }))
     }
 
-    handleSubmit = () =>{
-        const {dispatch} = this.props
+    handleSubmit = () => {
+        const { dispatch } = this.props
 
-        const {title} = this.state
+        const { title } = this.state
 
-        dispatch(handleAddDeck(title))
+        dispatch(handleAddDeck(title, (deck) => {
+            this.props.navigation.navigate(SCREEN_DECK_DETAILS_SCREEN, { deckId: deck.id })
+        }))
 
         this.setState(() => ({
-            title:''
+            title: ''
         }))
+
     }
     render() {
         return (
@@ -42,7 +46,7 @@ class AddDeck extends Component {
                 <CustomButton
                     text='Submit'
                     disabled={this.state.title == ''}
-                    containerStyle={{ backgroundColor: 'black' ,alignSelf:'center'}}
+                    containerStyle={{ backgroundColor: 'black', alignSelf: 'center' }}
                     textStyle={{ color: 'white' }}
                     onPress={this.handleSubmit} />
             </View>
@@ -52,9 +56,9 @@ class AddDeck extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex:1,
+        flex: 1,
         alignItems: 'stretch',
-        justifyContent:'space-around'
+        justifyContent: 'space-around'
     },
     screenTitle: {
         fontSize: 40,
