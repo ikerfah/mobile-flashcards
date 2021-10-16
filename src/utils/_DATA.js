@@ -13,3 +13,20 @@ export function _getDecks() {
     setTimeout(() => res({ ...decks }), 1000)
   })
 }
+
+export function _saveDeck(title) {
+  return new Promise((res, rej) => {
+    const formattedDeck = {
+      id: generateUID(),
+      title: title,
+      numberOfCards: 0
+    }
+
+    decks = {
+      ...decks,
+      [formattedDeck.id]: formattedDeck
+    }
+
+    res(formattedDeck)
+  })
+}

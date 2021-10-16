@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
+import { connect } from 'react-redux';
+import { handleAddDeck } from '../actions/decks';
 import CustomButton from './CustomButton';
 
 
@@ -9,8 +11,22 @@ class AddDeck extends Component {
     }
 
     onChangeText = (title) => {
+
+        
         this.setState(() => ({
             title
+        }))
+    }
+
+    handleSubmit = () =>{
+        const {dispatch} = this.props
+
+        const {title} = this.state
+
+        dispatch(handleAddDeck(title))
+
+        this.setState(() => ({
+            title:''
         }))
     }
     render() {
@@ -28,7 +44,7 @@ class AddDeck extends Component {
                     disabled={this.state.title == ''}
                     containerStyle={{ backgroundColor: 'black' ,alignSelf:'center'}}
                     textStyle={{ color: 'white' }}
-                    onPress={() => { console.log("Submit") }} />
+                    onPress={this.handleSubmit} />
             </View>
         )
     }
@@ -53,4 +69,4 @@ const styles = StyleSheet.create({
         borderRadius: 7
     },
 })
-export default AddDeck;
+export default connect()(AddDeck);
