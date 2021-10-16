@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { View, FlatList, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
+import { ADD_CARD_SCREEN } from '../utils/constants'
 import CustomButton from './CustomButton'
 import Deck from './Deck'
 
@@ -14,11 +15,10 @@ class DeckDetailsScreen extends Component {
                     <Deck deckId={deckId} />
                 </View>
                 <View style={styles.btnsContains}>
-
                     <CustomButton
                         text='Add card'
                         color='white'
-                        onPress={() => { console.log("ADD CARD") }} />
+                        onPress={() => this.props.navigation.navigate(ADD_CARD_SCREEN, { deckId })} />
                     <CustomButton
                         text='Start Quiz'
                         containerStyle={{ backgroundColor: 'black' }}

@@ -30,3 +30,30 @@ export function _saveDeck(title) {
     res(formattedDeck)
   })
 }
+
+export function _saveCard(deckId, question, answer) {
+  return new Promise((res, rej) => {
+
+    const card = {
+      question,
+      answer
+    }
+
+    decks = {
+      ...decks,
+      [deckId]: {
+        ...decks[deckId],
+        questions: [
+          ...decks[deckId].questions,
+          {
+            ...card
+          }
+        ]
+      }
+    }
+
+    console.log("decks =>> ",decks)
+
+    res(card)
+  })
+}

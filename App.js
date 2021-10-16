@@ -9,9 +9,16 @@ import DeckDetailsScreen from "./src/components/DeckDetailsScreen";
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { SCREEN_DECKS, SCREEN_DECK_DETAILS_SCREEN, SCREEN_NEW_DECK ,DECKS } from './src/utils/constants'
+import {
+  SCREEN_DECKS,
+  SCREEN_DECK_DETAILS_SCREEN,
+  SCREEN_NEW_DECK,
+  DECKS,
+  ADD_CARD_SCREEN
+} from './src/utils/constants'
 import AddDeck from "./src/components/AddDeck";
-import { Ionicons} from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
+import AddCard from "./src/components/AddCard";
 const store = createStore(reducer, middleware)
 
 const Tab = createBottomTabNavigator();
@@ -23,6 +30,7 @@ function MainScreen() {
     <Stack.Navigator>
       <Stack.Screen options={{ headerShown: false }} name={SCREEN_DECKS} component={DecksScreen} />
       <Stack.Screen name={SCREEN_DECK_DETAILS_SCREEN} component={DeckDetailsScreen} />
+      <Stack.Screen name={ADD_CARD_SCREEN} component={AddCard} />
     </Stack.Navigator>
   );
 }
@@ -41,14 +49,16 @@ export default function App() {
                 } else if (route.name === SCREEN_NEW_DECK) {
                   iconName = focused ? 'add-circle' : 'add-circle-outline';
                 }
-            // You can return any component that you like here!           
-            return <Ionicons name={iconName} size={size} color={color} />;          },          tabBarActiveTintColor: 'tomato',          tabBarInactiveTintColor: 'gray',        })}
+                // You can return any component that you like here!           
+                return <Ionicons name={iconName} size={size} color={color} />;
+              }, tabBarActiveTintColor: 'tomato', tabBarInactiveTintColor: 'gray',
+            })}
           >
             <Tab.Screen options={{ headerShown: false }} name={DECKS} component={MainScreen} i />
             <Tab.Screen options={{ headerShown: false }} name={SCREEN_NEW_DECK} component={AddDeck} />
           </Tab.Navigator>
-      </View>
-    </Provider>
+        </View>
+      </Provider>
     </NavigationContainer >
   )
 }
