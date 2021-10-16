@@ -1,7 +1,7 @@
 let decks = {
-  '1': { id: '1', title: 'deck1', numberOfCards: 5 },
-  '2': { id: '2', title: 'deck2', numberOfCards: 0 },
-  '3': { id: '3', title: 'deck3', numberOfCards: 1 },
+  '1': { id: '1', title: 'deck1', questions: [] },
+  '2': { id: '2', title: 'deck2', questions: [] },
+  '3': { id: '3', title: 'deck3', questions: [] },
 }
 
 function generateUID() {
@@ -19,7 +19,7 @@ export function _saveDeck(title) {
     const formattedDeck = {
       id: generateUID(),
       title: title,
-      numberOfCards: 0
+      questions: []
     }
 
     decks = {

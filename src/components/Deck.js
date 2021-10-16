@@ -3,7 +3,9 @@ import { View, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
 const Deck = (props) => {
-    const { title, numberOfCards } = props.deck
+    const { title, questions } = props.deck
+
+    const numberOfCards = questions.length
 
     return (
         <View style={styles.container}>
