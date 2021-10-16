@@ -4,7 +4,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from "react-native"
 
 export default CustomButton = props => {
     return (
-        <TouchableOpacity onPress={props.onPress}>
+        <TouchableOpacity onPress={props.onPress} disabled={props.disabled}>
             <View style={[styles.container, props.containerStyle]}>
                 <Text style={[styles.text, props.textStyle]}>{props.text ?? ''}</Text>
             </View>

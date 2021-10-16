@@ -25,6 +25,7 @@ class AddDeck extends Component {
                 />
                 <CustomButton
                     text='Submit'
+                    disabled={this.state.title == ''}
                     containerStyle={{ backgroundColor: 'black' ,alignSelf:'center'}}
                     textStyle={{ color: 'white' }}
                     onPress={() => { console.log("Submit") }} />
