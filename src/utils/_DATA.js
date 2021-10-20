@@ -1,5 +1,16 @@
 let decks = {
-  '1': { id: '1', title: 'deck1', questions: [] },
+  '1': {
+    id: '1', title: 'deck1', questions: [
+      {
+        question: 'What is React?',
+        answer: 'A library for managing user interfaces'
+      },
+      {
+        question: 'Where do you make Ajax requests in React?',
+        answer: 'The componentDidMount lifecycle event'
+      }
+    ]
+  },
   '2': { id: '2', title: 'deck2', questions: [] },
   '3': { id: '3', title: 'deck3', questions: [] },
 }
@@ -52,7 +63,7 @@ export function _saveCard(deckId, question, answer) {
       }
     }
 
-    console.log("decks =>> ",decks)
+    console.log("decks =>> ", decks)
 
     res(card)
   })
