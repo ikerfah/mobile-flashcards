@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, FlatList, TouchableOpacity } from 'react-native'
+import { View, FlatList, TouchableOpacity, Text } from 'react-native'
 import { connect } from 'react-redux'
 import Deck from './Deck'
 import { handleInitialData } from '../actions/shared';
@@ -11,13 +11,20 @@ class DecksScreen extends Component {
     renderItem = ({ item }) => {
         const deckId = item
         return (
-            <TouchableOpacity onPress={() => this.props.navigation.navigate(SCREEN_DECK_DETAILS_SCREEN,{deckId})}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate(SCREEN_DECK_DETAILS_SCREEN, { deckId })}>
                 <Deck deckId={deckId} />
             </TouchableOpacity>
         )
     }
     render() {
         const { decksIds } = this.props
+
+        if (decksIds == null || decksIds.length === 0) {
+            return (
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                    <Text>You have 0 decks</Text>
+                </View>)
+        }
         return (
             <View style={{ flex: 1 }}>
                 <FlatList
