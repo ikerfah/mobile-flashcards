@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { View, StyleSheet, TouchableOpacity, Text } from 'react-native'
 import { connect } from 'react-redux'
 import { handleDeleteDeck } from '../actions/decks'
+import { createTwoButtonAlert } from '../utils/alert'
 import { ADD_CARD_SCREEN, QUIZ_SCREEN } from '../utils/constants'
 import CustomButton from './CustomButton'
 import Deck from './Deck'
@@ -9,8 +10,14 @@ import Deck from './Deck'
 class DeckDetailsScreen extends Component {
 
     handleDeleteDeck = () => {
-        const { deckId } = this.props
-        this.props.dispatch(handleDeleteDeck(deckId, () => this.props.navigation.pop()))
+        const { deckId , dispatch} = this.props
+
+        createTwoButtonAlert(
+            "confirmation",
+            "Would you like to delete this deck ?",
+            () => this.props.dispatch(handleDeleteDeck(deckId, () => this.props.navigation.pop()))
+        )
+        
     }
     render() {
         const { deckId } = this.props
