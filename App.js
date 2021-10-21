@@ -13,7 +13,6 @@ import {
   SCREEN_DECKS,
   SCREEN_DECK_DETAILS_SCREEN,
   SCREEN_NEW_DECK,
-  DECKS,
   ADD_CARD_SCREEN,
   QUIZ_SCREEN,
   SCORE_SCREEN
@@ -29,15 +28,31 @@ const Tab = createBottomTabNavigator();
 
 const Stack = createNativeStackNavigator();
 
-function MainScreen() {
+// function MainScreen() {
+//   return (
+
+//   );
+// }
+
+function HomeTabs() {
   return (
-    <Stack.Navigator>
-      <Stack.Screen options={{ headerShown: false }} name={SCREEN_DECKS} component={DecksScreen} />
-      <Stack.Screen name={SCREEN_DECK_DETAILS_SCREEN} component={DeckDetailsScreen} />
-      <Stack.Screen name={ADD_CARD_SCREEN} component={AddCard} />
-      <Stack.Screen name={QUIZ_SCREEN} component={QuizScreen} />
-      <Stack.Screen name={SCORE_SCREEN} component={ScoreScreen} />
-    </Stack.Navigator>
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName;
+
+          if (route.name === SCREEN_DECKS) {
+            iconName = focused ? 'card' : 'card';
+          } else if (route.name === SCREEN_NEW_DECK) {
+            iconName = focused ? 'add-circle' : 'add-circle-outline';
+          }
+          return <Ionicons name={iconName} size={size} color={color} />;
+        }, tabBarActiveTintColor: 'tomato', tabBarInactiveTintColor: 'gray',
+      })}
+    >
+      <Tab.Screen options={{ headerShown: false }} name={SCREEN_DECKS} component={DecksScreen} />
+      <Tab.Screen options={{ headerShown: false }} name={SCREEN_NEW_DECK} component={AddDeck} />
+    </Tab.Navigator>
   );
 }
 export default function App() {
@@ -45,24 +60,13 @@ export default function App() {
     <NavigationContainer>
       <Provider store={store}>
         <View style={{ flex: 1 }}>
-          <Tab.Navigator
-            screenOptions={({ route }) => ({
-              tabBarIcon: ({ focused, color, size }) => {
-                let iconName;
-
-                if (route.name === DECKS) {
-                  iconName = focused ? 'card' : 'card';
-                } else if (route.name === SCREEN_NEW_DECK) {
-                  iconName = focused ? 'add-circle' : 'add-circle-outline';
-                }
-                // You can return any component that you like here!           
-                return <Ionicons name={iconName} size={size} color={color} />;
-              }, tabBarActiveTintColor: 'tomato', tabBarInactiveTintColor: 'gray',
-            })}
-          >
-            <Tab.Screen options={{ headerShown: false }} name={DECKS} component={MainScreen} i />
-            <Tab.Screen options={{ headerShown: false }} name={SCREEN_NEW_DECK} component={AddDeck} />
-          </Tab.Navigator>
+          <Stack.Navigator>
+            <Stack.Screen options={{ headerShown: false }} name="Home" component={HomeTabs} />
+            <Stack.Screen name={SCREEN_DECK_DETAILS_SCREEN} component={DeckDetailsScreen} />
+            <Stack.Screen name={ADD_CARD_SCREEN} component={AddCard} />
+            <Stack.Screen name={QUIZ_SCREEN} component={QuizScreen} />
+            <Stack.Screen name={SCORE_SCREEN} component={ScoreScreen} />
+          </Stack.Navigator>
         </View>
       </Provider>
     </NavigationContainer >
