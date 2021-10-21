@@ -26,7 +26,7 @@ class ScoreScreen extends Component {
                         <Text style={styles.totalText}>Total questions : {numberOfCards}</Text>
                         <Text style={styles.correctText}>Correct answers : {correctAnswers}</Text>
                         <Text style={styles.incorrectText}>Inorrect answers : {incorrectAnswers}</Text>
-                        <Text style={styles.percentage}>Percentage : {(correctAnswers / numberOfCards) * 100}%</Text>
+                        <Text style={styles.percentage}>Percentage : {((correctAnswers / numberOfCards) * 100).toFixed(2)}%</Text>
                     </View>
                 </View>
 
