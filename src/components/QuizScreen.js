@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
-import { QUIZ_SCREEN, SCORE_SCREEN } from '../utils/constants';
+import { SCORE_SCREEN } from '../utils/constants';
 import CustomButton from './CustomButton';
 import ItemQuestion from './ItemQuestion';
 class QuizScreen extends Component {

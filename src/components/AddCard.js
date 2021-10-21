@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, TextInput, View } from 'react-native';
+import { StyleSheet, TextInput, View } from 'react-native';
 import { connect } from 'react-redux';
 import { handleAddCard } from '../actions/decks';
 import { createOkButtonAlert } from '../utils/alert';

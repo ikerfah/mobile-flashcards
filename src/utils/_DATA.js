@@ -2,22 +2,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Notifications from 'expo-notifications';
 export const DECKS_STORAGE_KEY = "Flashcards:decks"
 export const NOTIFICATION_KEY = 'Flashcards:notifications'
-let decks = {
-  '1': {
-    id: '1', title: 'deck1', questions: [
-      {
-        question: 'What is React?',
-        answer: 'A library for managing user interfaces'
-      },
-      {
-        question: 'Where do you make Ajax requests in React?',
-        answer: 'The componentDidMount lifecycle event'
-      }
-    ]
-  },
-  '2': { id: '2', title: 'deck2', questions: [] },
-  '3': { id: '3', title: 'deck3', questions: [] },
-}
 
 function generateUID() {
   return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
@@ -62,7 +46,6 @@ export async function _deleteDeck(deckId) {
 }
 
 const getData = async () => {
-  // await AsyncStorage.clear()
   try {
     const jsonValue = await AsyncStorage.getItem(DECKS_STORAGE_KEY)
     return jsonValue != null ? JSON.parse(jsonValue) : [];
