@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import * as Notifications from 'expo-notifications';
 export const DECKS_STORAGE_KEY = "Flashcards:decks"
+export const NOTIFICATION_KEY = 'Flashcards:notifications'
 let decks = {
   '1': {
     id: '1', title: 'deck1', questions: [
@@ -112,4 +113,40 @@ const deleteDeck = async (deckId) => {
   await AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify({
     ...decks
   }))
+}
+
+export function _clearLocalNotification() {
+  return AsyncStorage.removeItem(NOTIFICATION_KEY)
+    .then(Notifications.cancelAllScheduledNotificationsAsync)
+}
+
+export async function _setLocalNotification() {
+  AsyncStorage.getItem(NOTIFICATION_KEY)
+    .then(JSON.parse)
+    .then(async (data) => {
+      if (data === null) {
+        const { status } = await Notifications.requestPermissionsAsync()
+        if (status === 'granted') {
+          Notifications.cancelAllScheduledNotificationsAsync()
+
+          const schedule = new Date(Date.now() + 24 * 60 * 60 * 1000);
+          schedule.setMinutes(20);
+          schedule.setSeconds(0);
+
+          await Notifications.scheduleNotificationAsync({
+            content: {
+              title: "Are you ready to study?",
+              body: 'It been a while since your last visit, take a minute to read one of your decks',
+            },
+            trigger: {
+              schedule,
+              repeats: true,
+            }
+          });
+
+          AsyncStorage.setItem(NOTIFICATION_KEY, JSON.stringify(true))
+
+        }
+      }
+    })
 }

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { View, StyleSheet, Text } from 'react-native'
 import { connect } from 'react-redux'
 import { QUIZ_SCREEN } from '../utils/constants'
+import { clearLocalNotification, setLocalNotification } from '../utils/notifications'
 import CustomButton from './CustomButton'
 
 class ScoreScreen extends Component {
@@ -9,6 +10,9 @@ class ScoreScreen extends Component {
         this.props.navigation.setOptions({
             title: 'Score'
         });
+
+        clearLocalNotification()
+      .then(setLocalNotification)
     }
 
     render() {

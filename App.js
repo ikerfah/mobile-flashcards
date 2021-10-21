@@ -22,6 +22,18 @@ import { Ionicons } from '@expo/vector-icons';
 import AddCard from "./src/components/AddCard";
 import QuizScreen from "./src/components/QuizScreen";
 import ScoreScreen from "./src/components/ScoreScreen";
+import { setLocalNotification } from "./src/utils/notifications";
+import * as Notifications from 'expo-notifications';
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: false,
+    shouldSetBadge: false,
+  }),
+});
+
+
 const store = createStore(reducer, middleware)
 
 const Tab = createBottomTabNavigator();
@@ -50,20 +62,26 @@ function HomeTabs() {
     </Tab.Navigator>
   );
 }
-export default function App() {
-  return (
-    <NavigationContainer>
-      <Provider store={store}>
-        <View style={{ flex: 1 }}>
-          <Stack.Navigator>
-            <Stack.Screen options={{ headerShown: false }} name="Home" component={HomeTabs} />
-            <Stack.Screen name={SCREEN_DECK_DETAILS_SCREEN} component={DeckDetailsScreen} />
-            <Stack.Screen name={ADD_CARD_SCREEN} component={AddCard} />
-            <Stack.Screen name={QUIZ_SCREEN} component={QuizScreen} />
-            <Stack.Screen name={SCORE_SCREEN} component={ScoreScreen} />
-          </Stack.Navigator>
-        </View>
-      </Provider>
-    </NavigationContainer >
-  )
+export default class App extends React.Component {
+  componentDidMount() {
+    setLocalNotification()
+  }
+  
+  render(){
+    return (
+      <NavigationContainer>
+        <Provider store={store}>
+          <View style={{ flex: 1 }}>
+            <Stack.Navigator>
+              <Stack.Screen options={{ headerShown: false }} name="Home" component={HomeTabs} />
+              <Stack.Screen name={SCREEN_DECK_DETAILS_SCREEN} component={DeckDetailsScreen} />
+              <Stack.Screen name={ADD_CARD_SCREEN} component={AddCard} />
+              <Stack.Screen name={QUIZ_SCREEN} component={QuizScreen} />
+              <Stack.Screen name={SCORE_SCREEN} component={ScoreScreen} />
+            </Stack.Navigator>
+          </View>
+        </Provider>
+      </NavigationContainer >
+    )
+  }
 }
