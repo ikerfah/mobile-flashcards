@@ -65,7 +65,6 @@ const getData = async () => {
   // await AsyncStorage.clear()
   try {
     const jsonValue = await AsyncStorage.getItem(DECKS_STORAGE_KEY)
-    console.log("DATA=", jsonValue)
     return jsonValue != null ? JSON.parse(jsonValue) : [];
   } catch (e) {
     return []

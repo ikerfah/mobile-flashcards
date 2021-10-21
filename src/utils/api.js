@@ -9,7 +9,6 @@ export function getInitialData() {
     return Promise.all([
         _getDecks(),
     ]).then(([decks]) => {
-        console.log("DATA2=", decks);
         return {
             decks
         }

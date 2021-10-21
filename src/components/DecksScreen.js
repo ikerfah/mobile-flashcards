@@ -38,7 +38,6 @@ class DecksScreen extends Component {
 }
 
 function mapStateToProps({ decks }, props) {
-    console.log("LOOOOG => ", props)
     return {
         decksIds: Object.keys(decks)
     }
