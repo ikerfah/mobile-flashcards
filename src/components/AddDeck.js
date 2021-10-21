@@ -12,8 +12,6 @@ class AddDeck extends Component {
     }
 
     onChangeText = (title) => {
-
-
         this.setState(() => ({
             title
         }))
@@ -25,7 +23,7 @@ class AddDeck extends Component {
         const { title } = this.state
 
         dispatch(handleAddDeck(title, (deck) => {
-            this.props.navigation.navigate(SCREEN_DECK_DETAILS_SCREEN, { deckId: deck.id })
+            this.props.navigation.push(SCREEN_DECK_DETAILS_SCREEN, { deckId: deck.id })
         }))
 
         this.setState(() => ({

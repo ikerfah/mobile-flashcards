@@ -52,7 +52,16 @@ export async function _saveCard(deckId, question, answer) {
   })
 }
 
+export async function _deleteDeck(deckId) {
+
+  return new Promise(async (res, rej) => {
+    await deleteDeck(deckId)
+    res(deckId)
+  })
+}
+
 const getData = async () => {
+  // await AsyncStorage.clear()
   try {
     const jsonValue = await AsyncStorage.getItem(DECKS_STORAGE_KEY)
     console.log("DATA=", jsonValue)
@@ -92,5 +101,15 @@ const addCardToDeck = async (deckId, card) => {
         }
       ]
     }
+  }))
+}
+
+const deleteDeck = async (deckId) => {
+  const decks = await getData()
+
+  delete decks[deckId]
+
+  await AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify({
+    ...decks
   }))
 }
