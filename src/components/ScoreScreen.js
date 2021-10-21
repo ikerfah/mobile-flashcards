@@ -5,6 +5,11 @@ import { QUIZ_SCREEN } from '../utils/constants'
 import CustomButton from './CustomButton'
 
 class ScoreScreen extends Component {
+    componentDidMount() {
+        this.props.navigation.setOptions({
+            title: 'Score'
+        });
+    }
 
     render() {
         const { deck, correctAnswers, incorrectAnswers } = this.props

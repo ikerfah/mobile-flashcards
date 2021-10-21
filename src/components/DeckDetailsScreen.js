@@ -9,18 +9,30 @@ import Deck from './Deck'
 
 class DeckDetailsScreen extends Component {
 
+    componentDidMount() {
+        const { title } = this.props.deck
+        this.props.navigation.setOptions({
+            title: title
+        });
+    }
+
     handleDeleteDeck = () => {
-        const { deckId , dispatch} = this.props
+        const { deck, dispatch } = this.props
+
+        const deckId = deck.id
 
         createTwoButtonAlert(
             "confirmation",
             "Would you like to delete this deck ?",
-            () => this.props.dispatch(handleDeleteDeck(deckId, () => this.props.navigation.pop()))
+            () => dispatch(handleDeleteDeck(deckId, () => this.props.navigation.pop()))
         )
-        
+
     }
     render() {
-        const { deckId } = this.props
+        const { deck } = this.props
+
+        const deckId = deck.id
+
         return (
             <View style={{ flex: 1 }}>
                 <View style={{ flex: 1, justifyContent: 'center' }}>
@@ -53,10 +65,11 @@ const styles = StyleSheet.create({
     }
 })
 
-function mapStateToProps({ }, { route }) {
+function mapStateToProps({ decks }, { route }) {
     const { deckId } = route.params;
+
     return {
-        deckId
+        deck: decks[deckId]
     }
 }
 

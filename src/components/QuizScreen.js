@@ -11,6 +11,13 @@ class QuizScreen extends Component {
         incorrectAnswers: 0,
         gameOver: false
     }
+
+    componentDidMount() {
+        this.props.navigation.setOptions({
+            title: 'Quiz'
+        });
+    }
+
     handleUserResponse = (key) => {
         const { gameOver } = this.state
         if (gameOver) return
@@ -18,10 +25,7 @@ class QuizScreen extends Component {
 
         const cardsNumber = questions.length
 
-        const { currentCardIndex, correctAnswers, incorrectAnswers } = this.state
-
-        console.log("cardsNumber", cardsNumber)
-        console.log("currentCardIndex", currentCardIndex)
+        const { currentCardIndex } = this.state
 
         if ((currentCardIndex + 1) === cardsNumber) {
             this.setState((prevState) => ({

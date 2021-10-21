@@ -28,11 +28,6 @@ const Tab = createBottomTabNavigator();
 
 const Stack = createNativeStackNavigator();
 
-// function MainScreen() {
-//   return (
-
-//   );
-// }
 
 function HomeTabs() {
   return (
