@@ -40,33 +40,17 @@ export async function _saveDeck(title) {
   })
 }
 
-export function _saveCard(deckId, question, answer) {
+export async function _saveCard(deckId, question, answer) {
+  const card = {
+    question,
+    answer
+  }
+  await addCardToDeck(deckId, card)
+
   return new Promise((res, rej) => {
-
-    const card = {
-      question,
-      answer
-    }
-
-    decks = {
-      ...decks,
-      [deckId]: {
-        ...decks[deckId],
-        questions: [
-          ...decks[deckId].questions,
-          {
-            ...card
-          }
-        ]
-      }
-    }
-
-    console.log("decks =>> ", decks)
-
     res(card)
   })
 }
-
 
 const getData = async () => {
   try {
@@ -93,4 +77,20 @@ const saveDeckTitle = async (title) => {
   }
 
   return formattedDeck
+}
+
+const addCardToDeck = async (deckId, card) => {
+  const decks = await getData()
+
+  await AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify({
+    [deckId]: {
+      ...decks[deckId],
+      questions: [
+        ...decks[deckId].questions,
+        {
+          ...card
+        }
+      ]
+    }
+  }))
 }
