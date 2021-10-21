@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
+import { QUIZ_SCREEN, SCORE_SCREEN } from '../utils/constants';
 import CustomButton from './CustomButton';
 import ItemQuestion from './ItemQuestion';
 class QuizScreen extends Component {
@@ -13,11 +14,11 @@ class QuizScreen extends Component {
     handleUserResponse = (key) => {
         const { gameOver } = this.state
         if (gameOver) return
-        const { questions } = this.props.deck
+        const { id, questions } = this.props.deck
 
         const cardsNumber = questions.length
 
-        const { currentCardIndex } = this.state
+        const { currentCardIndex, correctAnswers, incorrectAnswers } = this.state
 
         console.log("cardsNumber", cardsNumber)
         console.log("currentCardIndex", currentCardIndex)
@@ -26,7 +27,13 @@ class QuizScreen extends Component {
             this.setState((prevState) => ({
                 gameOver: true,
                 [key]: prevState[key] + 1
-            }))
+            }), () => {
+                this.props.navigation.replace(SCORE_SCREEN, {
+                    deckId: id,
+                    correctAnswers: this.state.correctAnswers,
+                    incorrectAnswers: this.state.incorrectAnswers
+                })
+            })
         } else {
             this.setState((prevState) => ({
                 currentCardIndex: prevState.currentCardIndex + 1,

@@ -15,12 +15,14 @@ import {
   SCREEN_NEW_DECK,
   DECKS,
   ADD_CARD_SCREEN,
-  QUIZ_SCREEN
+  QUIZ_SCREEN,
+  SCORE_SCREEN
 } from './src/utils/constants'
 import AddDeck from "./src/components/AddDeck";
 import { Ionicons } from '@expo/vector-icons';
 import AddCard from "./src/components/AddCard";
 import QuizScreen from "./src/components/QuizScreen";
+import ScoreScreen from "./src/components/ScoreScreen";
 const store = createStore(reducer, middleware)
 
 const Tab = createBottomTabNavigator();
@@ -34,6 +36,7 @@ function MainScreen() {
       <Stack.Screen name={SCREEN_DECK_DETAILS_SCREEN} component={DeckDetailsScreen} />
       <Stack.Screen name={ADD_CARD_SCREEN} component={AddCard} />
       <Stack.Screen name={QUIZ_SCREEN} component={QuizScreen} />
+      <Stack.Screen name={SCORE_SCREEN} component={ScoreScreen} />
     </Stack.Navigator>
   );
 }

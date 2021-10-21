@@ -23,7 +23,7 @@ class DeckDetailsScreen extends Component {
                         text='Start Quiz'
                         containerStyle={{ backgroundColor: 'black' }}
                         textStyle={{ color: 'white' }}
-                        onPress={() => { this.props.navigation.navigate(QUIZ_SCREEN, {deckId}) }} />
+                        onPress={() => { this.props.navigation.push(QUIZ_SCREEN, { deckId }) }} />
                 </View>
             </View>
         )
