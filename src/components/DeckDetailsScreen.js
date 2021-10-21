@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { View, StyleSheet, TouchableOpacity, Text } from 'react-native'
 import { connect } from 'react-redux'
 import { handleDeleteDeck } from '../actions/decks'
-import { createTwoButtonAlert } from '../utils/alert'
+import { createOkButtonAlert, createTwoButtonAlert } from '../utils/alert'
 import { ADD_CARD_SCREEN, QUIZ_SCREEN } from '../utils/constants'
 import CustomButton from './CustomButton'
 import Deck from './Deck'
@@ -33,6 +33,8 @@ class DeckDetailsScreen extends Component {
 
         const deckId = deck.id
 
+        const numberOfCards = deck.questions.length
+
         return (
             <View style={{ flex: 1 }}>
                 <View style={{ flex: 1, justifyContent: 'center' }}>
@@ -47,7 +49,13 @@ class DeckDetailsScreen extends Component {
                         text='Start Quiz'
                         containerStyle={{ backgroundColor: 'black' }}
                         textStyle={{ color: 'white' }}
-                        onPress={() => { this.props.navigation.push(QUIZ_SCREEN, { deckId }) }} />
+                        onPress={() => {
+                            if (numberOfCards === 0) {
+                                createOkButtonAlert("Error", "This deck has no cards")
+                            } else {
+                                this.props.navigation.push(QUIZ_SCREEN, { deckId })
+                            }
+                        }} />
 
                     <TouchableOpacity onPress={this.handleDeleteDeck}>
                         <Text style={{ padding: 10, color: 'red' }}>Delete</Text>
