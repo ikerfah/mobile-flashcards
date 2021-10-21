@@ -1,3 +1,6 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+export const DECKS_STORAGE_KEY = "Flashcards:decks"
 let decks = {
   '1': {
     id: '1', title: 'deck1', questions: [
@@ -19,25 +22,20 @@ function generateUID() {
   return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
 }
 
-export function _getDecks() {
+export async function _getDecks() {
+
+  const decks = await getData()
+
   return new Promise((res, rej) => {
-    setTimeout(() => res({ ...decks }), 1000)
+    res({ ...decks })
   })
 }
 
-export function _saveDeck(title) {
-  return new Promise((res, rej) => {
-    const formattedDeck = {
-      id: generateUID(),
-      title: title,
-      questions: []
-    }
+export async function _saveDeck(title) {
 
-    decks = {
-      ...decks,
-      [formattedDeck.id]: formattedDeck
-    }
+  const formattedDeck = await saveDeckTitle(title)
 
+  return new Promise(async (res, rej) => {
     res(formattedDeck)
   })
 }
@@ -67,4 +65,32 @@ export function _saveCard(deckId, question, answer) {
 
     res(card)
   })
+}
+
+
+const getData = async () => {
+  try {
+    const jsonValue = await AsyncStorage.getItem(DECKS_STORAGE_KEY)
+    console.log("DATA=", jsonValue)
+    return jsonValue != null ? JSON.parse(jsonValue) : [];
+  } catch (e) {
+    return []
+  }
+}
+
+const saveDeckTitle = async (title) => {
+  const formattedDeck = {
+    id: generateUID(),
+    title: title,
+    questions: []
+  }
+
+  try {
+    await AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify({
+      [formattedDeck.id]: formattedDeck
+    }))
+  } catch (e) {
+  }
+
+  return formattedDeck
 }

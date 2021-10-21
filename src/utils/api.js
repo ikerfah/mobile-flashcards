@@ -7,15 +7,18 @@ import {
 export function getInitialData() {
     return Promise.all([
         _getDecks(),
-    ]).then(([decks]) => ({
-        decks,
-    }))
+    ]).then(([decks]) => {
+        console.log("DATA2=",decks);
+        return {
+            decks
+        }
+    })
 }
 
 export function saveDeck(title) {
     return _saveDeck(title)
 }
 
-export function saveCard(deckId,question,answer) {
-    return _saveCard(deckId,question,answer)
+export function saveCard(deckId, question, answer) {
+    return _saveCard(deckId, question, answer)
 }
