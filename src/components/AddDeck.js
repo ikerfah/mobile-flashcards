@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
 import { connect } from 'react-redux';
 import { handleAddDeck } from '../actions/decks';
+import { createOkButtonAlert } from '../utils/alert';
 import { SCREEN_DECK_DETAILS_SCREEN } from '../utils/constants';
 import CustomButton from './CustomButton';
 
@@ -23,14 +24,15 @@ class AddDeck extends Component {
         const { title } = this.state
 
         dispatch(handleAddDeck(title, (deck) => {
-            this.props.navigation.push(SCREEN_DECK_DETAILS_SCREEN, { deckId: deck.id })
+            createOkButtonAlert("Sucess", "You deck has been added successfully", () => {
+                this.props.navigation.push(SCREEN_DECK_DETAILS_SCREEN, { deckId: deck.id })
+            })
+            this.setState(() => ({
+                title: ''
+            }))
         }))
-
-        this.setState(() => ({
-            title: ''
-        }))
-
     }
+
     render() {
         return (
             <View style={styles.container}>

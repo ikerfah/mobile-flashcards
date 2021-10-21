@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
 import { connect } from 'react-redux';
 import { handleAddCard } from '../actions/decks';
+import { createOkButtonAlert } from '../utils/alert';
 import CustomButton from './CustomButton';
 
 
@@ -19,16 +20,20 @@ class AddCard extends Component {
     }
 
     handleSubmit = () => {
-        const { dispatch , deckId} = this.props
+        const { dispatch, deckId } = this.props
 
         const { question, answer } = this.state
 
-        dispatch(handleAddCard(deckId, question, answer))
+        dispatch(handleAddCard(deckId, question, answer, () => {
+            this.setState(() => ({
+                question: '',
+                answer: ''
+            }))
 
-        this.setState(() => ({
-            question: '',
-            answer: ''
+            createOkButtonAlert("Success", "You card has been added to the deck")
         }))
+
+
     }
     render() {
         return (

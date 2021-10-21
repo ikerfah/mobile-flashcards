@@ -19,4 +19,18 @@ export const createTwoButtonAlert = (
         { cancelable: false }
     );
 
+export const createOkButtonAlert = (
+    title,
+    message,
+    onOkClicked
+) =>
+    Alert.alert(
+        title,
+        message,
+        [
+            { text: "OK", onPress: () => onOkClicked ? onOkClicked() : {} }
+        ],
+        { cancelable: true }
+    );
+
 

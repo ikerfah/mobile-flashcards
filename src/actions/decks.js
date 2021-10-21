@@ -37,10 +37,13 @@ export function handleAddDeck(title, onDeckSaved) {
     }
 }
 
-export function handleAddCard(deckId, question, answer) {
+export function handleAddCard(deckId, question, answer, onCardAdded) {
     return (dispatch) => {
         saveCard(deckId, question, answer)
-            .then((card) => dispatch(addCard(deckId, card)))
+            .then((card) => {
+                dispatch(addCard(deckId, card))
+                onCardAdded()
+            })
     }
 }
 
